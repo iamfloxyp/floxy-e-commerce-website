@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Save the cart total to localStorage
         localStorage.setItem('cartTotal', total);
+        localStorage.setItem('shippingFee', shippingFee);
     }
 
     // Function to update quantity of cart items

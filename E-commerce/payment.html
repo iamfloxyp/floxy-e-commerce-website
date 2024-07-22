@@ -3,83 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Payment Confirmation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            text-align: center;
-            background-color: #f4f4f4;
+        }
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #007bff; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .container {
-            width: 80%;
+            display: none; /* Hide initially */
+            width: 90%;
             margin: 0 auto;
             padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-top: 50px;
-            border-radius: 8px;
+            
         }
-        .hurray-image {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
-        .order-details {
-            text-align: left;
+        .success {
+            color: green;
+            font-size: 24px;
             margin-top: 20px;
         }
-        .order-details p {
+        .details {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .details p {
             margin: 10px 0;
+        }
+        .ok-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .ok-button:hover {
+            background-color: #0056b3;
+        }
+        .image {
+            width: 100px;
+            height: 100px;
+
+            position: relative;
+            top: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="hurray.png" alt="Hurray!" class="hurray-image">
-        <h1>Hurray! Your Order is Confirmed</h1>
-        <p>Thank you for your purchase. Your order details are as follows:</p>
-        <div class="order-details" id="order-details">
-            <!-- Order details will be populated here -->
+    <div class="loader" id="loader"></div>
+    <div class="container" id="payment-container">
+        <div class="image">
+<img src="./images/successful_payment_388054.png.crdownload" alt="payment.png">        </div>
+        <h1 class="success">Payment Successful!</h1>
+        <p>Thank you! Your payment has been received.</p>
+        
+        <div class="details">
+            <h3>Payment Details</h3>
+            <div id="payment-details"></div>
+            <p id="grand-total"></p>
         </div>
+        
+        <button class="ok-button" onclick="handleOkClick()">OK</button>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Retrieve order details from localStorage
-            const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || [];
-            const cardInfo = JSON.parse(localStorage.getItem('cardInfo')) || {};
-            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+            // Show loader and hide content
+            setTimeout(function() {
+                // Hide the loader and show the payment container
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('payment-container').style.display = 'block';
 
-            // Format the order details
-            const orderDetailsDiv = document.getElementById('order-details');
-            let orderDetailsHtml = '<h3>Items:</h3>';
+                // Fetch cart details from localStorage
+                const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                const shippingFee = parseFloat(localStorage.getItem('shippingFee')) || 0;
+                const paymentDetailsDiv = document.getElementById('payment-details');
+                let grandTotal = 0;
 
-            cartInfo.forEach(item => {
-                orderDetailsHtml += <p><strong>${item.name}</strong>: ${item.quantity} x $${item.price} = $${item.quantity * item.price}</p>;
-            });
+                // Display cart items
+                if (cartItems.length > 0) {
+                    cartItems.forEach(item => {
+                        const itemTotal = item.quantity * parseFloat(item.price.replace('$', ''));
+                        grandTotal += itemTotal;
 
-            orderDetailsHtml += '<h3>Card Information:</h3>';
-            orderDetailsHtml += <p><strong>Cardholder's Name:</strong> ${cardInfo.name || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>Card Number:</strong> * * ** ${cardInfo.number ? cardInfo.number.slice(-4) : 'N/A'}</p>;
+                        const itemDiv = document.createElement('div');
+                        itemDiv.innerHTML = `
+                            <p><strong>Item Name:</strong> ${item.productName}</p>
+                            <p><strong>Quantity:</strong> ${item.quantity}</p>
+                            <p><strong>Price:</strong> $${parseFloat(item.price.replace('$', '')).toFixed(2)}</p>
+                            <p><strong>Total:</strong> $${itemTotal.toFixed(2)}</p>
+                            <hr>
+                        `;
+                        paymentDetailsDiv.appendChild(itemDiv);
+                    });
 
-            orderDetailsHtml += '<h3>Delivery Information:</h3>';
-            orderDetailsHtml += <p><strong>Full Name:</strong> ${deliveryInfo.fullName || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>Address:</strong> ${deliveryInfo.address || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>City:</strong> ${deliveryInfo.city || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>State:</strong> ${deliveryInfo.state || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>Zip Code:</strong> ${deliveryInfo.zipCode || 'N/A'}</p>;
-            orderDetailsHtml += <p><strong>Country:</strong> ${deliveryInfo.country || 'N/A'}</p>;
+                    // Add shipping fee to grand total
+                    grandTotal += shippingFee;
 
-            // Append the formatted order details to the div
-            orderDetailsDiv.innerHTML = orderDetailsHtml;
+                    const grandTotalDiv = document.getElementById('grand-total');
+                    grandTotalDiv.innerHTML = `
+                        <p><strong>Shipping Fee:</strong> $${shippingFee.toFixed(2)}</p>
+                        <p><strong>Grand Total:</strong> $${grandTotal.toFixed(2)}</p>
+                    `;
+                } else {
+                    paymentDetailsDiv.innerHTML = '<p>No items in the cart.</p>';
+                }
+            }); // 15 seconds delay
         });
+
+        function handleOkClick() {
+            // Clear cart from localStorage
+            localStorage.removeItem('cart');
+            localStorage.removeItem('shippingFee');
+            // Redirect to the home page
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
