@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+            border-radius: 8px;
+        }
+        .hurray-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .order-details {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .order-details p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="hurray.png" alt="Hurray!" class="hurray-image">
+        <h1>Hurray! Your Order is Confirmed</h1>
+        <p>Thank you for your purchase. Your order details are as follows:</p>
+        <div class="order-details" id="order-details">
+            <!-- Order details will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve order details from localStorage
+            const cartInfo = JSON.parse(localStorage.getItem('cartInfo')) || [];
+            const cardInfo = JSON.parse(localStorage.getItem('cardInfo')) || {};
+            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+
+            // Format the order details
+            const orderDetailsDiv = document.getElementById('order-details');
+            let orderDetailsHtml = '<h3>Items:</h3>';
+
+            cartInfo.forEach(item => {
+                orderDetailsHtml += <p><strong>${item.name}</strong>: ${item.quantity} x $${item.price} = $${item.quantity * item.price}</p>;
+            });
+
+            orderDetailsHtml += '<h3>Card Information:</h3>';
+            orderDetailsHtml += <p><strong>Cardholder's Name:</strong> ${cardInfo.name || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>Card Number:</strong> * * ** ${cardInfo.number ? cardInfo.number.slice(-4) : 'N/A'}</p>;
+
+            orderDetailsHtml += '<h3>Delivery Information:</h3>';
+            orderDetailsHtml += <p><strong>Full Name:</strong> ${deliveryInfo.fullName || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>Address:</strong> ${deliveryInfo.address || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>City:</strong> ${deliveryInfo.city || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>State:</strong> ${deliveryInfo.state || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>Zip Code:</strong> ${deliveryInfo.zipCode || 'N/A'}</p>;
+            orderDetailsHtml += <p><strong>Country:</strong> ${deliveryInfo.country || 'N/A'}</p>;
+
+            // Append the formatted order details to the div
+            orderDetailsDiv.innerHTML = orderDetailsHtml;
+        });
+    </script>
+</body>
+</html>

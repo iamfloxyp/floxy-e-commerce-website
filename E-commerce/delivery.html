@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Delivery Information</title>
+</head>
+<body>
+
+    <div class="back-to-cart">
+        <button id="back-to-cart-btn"><i class="fa fa-long-arrow-left">Back</i></button>
+    </div>
+    <div class="delivery-container">
+        <h2>Delivery Information</h2>
+        <form id="delivery-form">
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" required>
+            </div>
+            <div class="form-group">
+                <label for="zip-code">Zip Code</label>
+                <input type="text" id="zip-code" name="zip-code" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submit-delivery">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script src="delivery.js"></script>
+    <script>
+        document.getElementById('back-to-cart-btn').addEventListener("click", ()=>{
+            window.location.href = "cart.html";
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const deliveryForm = document.getElementById('delivery-form');
+
+            deliveryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const fullName = document.getElementById('full-name').value;
+                const address = document.getElementById('address').value;
+                const city = document.getElementById('city').value;
+                const state = document.getElementById('state').value;
+                const zipCode = document.getElementById('zip-code').value;
+                const country = document.getElementById('country').value;
+                const phone = document.getElementById('phone').value;
+
+                const deliveryInfo = {
+                    fullName,
+                    address,
+                    city,
+                    state,
+                    zipCode,
+                    country,
+                    phone,
+                };
+
+                // Save delivery information to localStorage
+                localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+
+                // Redirect to order summary page
+                window.location.href = 'summary.html';
+            });
+        });
+    </script>
+</body>
+</html>
