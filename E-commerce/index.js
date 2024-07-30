@@ -233,151 +233,16 @@ document.querySelectorAll('.faq-question').forEach(button => {
         faqItem.classList.toggle('open');
     });
 });
-//iteration of so many things.its safe to use for
+// maedia query
+document.getElementById('menu-icon').addEventListener('click', function() {
+    var navLinks = document.getElementById('nav-links');
+    var icon = document.getElementById('menu-icon');
 
-// let cartCount = 0;
-// let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-// function displayAllProducts() {
-//     let productsContainer = document.getElementById("products");
-//     productsContainer.innerHTML = "";
-
-//     for (let i of products.data) {
-//         // Creating a container to hold the images
-//         let card = document.createElement("div");
-//         card.classList.add("card", i.category);
-
-//         let imgContainer = document.createElement("div");
-//         imgContainer.classList.add("image-container");
-
-//         let image = document.createElement('img');
-//         image.setAttribute("src", i.image);
-//         imgContainer.appendChild(image);
-//         card.appendChild(imgContainer);
-
-//         // Creating a container to hold the contents in the container
-//         let container = document.createElement("div");
-//         container.classList.add("container");
-
-//         // Creating the product name
-//         let name = document.createElement("h5");
-//         name.classList.add("product-name");
-//         name.innerText = i.productName.toUpperCase();
-//         container.appendChild(name);
-
-//         // Creating the price
-//         let price = document.createElement("h6");
-//         price.innerText = i.price;
-//         container.appendChild(price);
-
-//         // Creating Add to Cart button
-//         let addToCartButton = document.createElement("button");
-//         addToCartButton.innerText = "Add to Cart";
-//         addToCartButton.classList.add("add-to-cart-button");
-
-//         addToCartButton.onclick = () => {
-//             cart.push(i);
-//             cartCount++;
-//             document.getElementById("cart-count").innerText = cartCount;
-//             localStorage.setItem('cart', JSON.stringify(cart));
-//         };
-
-//         container.appendChild(addToCartButton);
-//         card.appendChild(container);
-//         productsContainer.appendChild(card);
-//     }
-// }
-
-
-
-// function updateCart(product, quantity) {
-//     let cartItem = cart.find(item => item.productName === product.productName);
-//     if (cartItem) {
-//         if (quantity === 0) {
-//             cart = cart.filter(item => item.productName !== product.productName);
-//         } else {
-//             cartItem.quantity = quantity;
-//         }
-//     } else {
-//         cart.push({...product, quantity: quantity});
-//     }
-//     localStorage.setItem('cart', JSON.stringify(cart));
-// }
-
-// // search button
-
-// // Add search functionality
-// document.getElementById('search-item').addEventListener('input', function() {
-//     let searchQuery = this.value.toLowerCase();
-//     let elements = document.querySelectorAll(".card");
-//     let found = false;
-
-//     elements.forEach((element) => {
-//         let text = element.textContent || element.innerText;
-//         if (text.toLowerCase().includes(searchQuery)) {
-//             element.classList.remove("hide");
-//             found = true;
-//         } else {
-//             element.classList.add("hide");
-//         }
-//     });
-
-//     let notFoundMessage = document.getElementById('not-found');
-//     if (found) {
-//         notFoundMessage.style.display = 'none';
-//     } else {
-//         notFoundMessage.style.display = 'block';
-//     }
-//     // clear search
-//     this.value = ""
-// });
-
-
-
-// // button filtering
-     
-// function filterProduct(value){
-//     let buttons = document.querySelectorAll(".button-value");
-//     buttons.forEach(button=>{
-//         if(value.toUpperCase()== button.innerText.toUpperCase()){
-//             button.classList.add("active")
-//         }
-//         else{
-//             button.classList.remove("active")
-//         }
-//     });
-//     let elements = document.querySelectorAll(".card");
-//     elements.forEach((element)=>{
-//         if(value =="all"){
-//             element.classList.remove("hide")
-//         }
-//         else{
-
-//             if(element.classList.contains(value)){
-
-//                 element.classList.remove("hide")
-//             }
-//             else{
-//                 element.classList.add("hide")
-//             }
-//         }
-//     })
-// }
-// //to display all the products
-
-// window.onload = () =>{
-//     displayAllProducts()
-//     // filterProduct("all")
-// }
-
-// // faq 
-
-// document.querySelectorAll('.faq-question').forEach(button => {
-//     button.addEventListener('click', () => {
-//         const faqItem = button.parentElement;
-
-//         // Toggle the open class
-//         faqItem.classList.toggle('open');
-//     });
-// });
-
+    if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+        icon.className = 'fa fa-bars';
+    } else {
+        navLinks.style.display = 'flex';
+        icon.className = 'fa fa-times';
+    }
+});

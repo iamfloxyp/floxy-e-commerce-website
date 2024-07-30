@@ -20,7 +20,7 @@
         <!-- navbar -->
             <nav>
         <h2 class="logo">Floxy</h2>
-        <ul>
+        <ul id="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#about-us">About us</a></li>
             <li><a href="#blog ">Blog</a></li>
@@ -28,16 +28,19 @@
             
         
         <a class="btn" href="signUp.html">Login</a>
+        <!-- <div class="cart-count"  onclick="window.location.href = 'cart.html'">
+            <i class=" fa fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </div> -->
+        </ul>
         <div class="cart-count"  onclick="window.location.href = 'cart.html'">
             <i class=" fa fa-shopping-cart"></i>
             <span id="cart-count">0</span>
         </div>
-        </ul>
-        
        
-        <div class="menu">
-            <i  class="fa fa-bars"></i>
-            <i  class="fa fa-times"></i>
+        <div class="menu" id="icon">
+            <i  class="fa fa-bars" id="menu-icon"></i>
+            <!-- <i  class="fa fa-times"></i> -->
         </div>
     </nav>
     <div class="header-text">
@@ -47,12 +50,13 @@
             <button onclick="location.href='#products'">Buy Now</button>
         </div>
     </div>
-    
-    </header>
     <div class="image">
         
         <img src="./images/green_sofa-removebg-preview.png" alt="">
     </div>
+    
+    </header>
+    
 
     <section id="about-us"  class="about-us">
         <h2>About Us</h2>
@@ -74,19 +78,19 @@
             <img src="./images/lastest trend.jpeg" alt="">
             <h3>Top 10 Interior Design Trends for 2024</h3>
             <p>Discover the latest trends in interior design for 2024. From sustainable materials to bold colors, find out what’s in and what’s out for your home décor...</p>
-            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; width: 15px; color: red;padding-left: 5px; font-size: 25px;" ></i></a>
+            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; width: 15px; color: blue;padding-left: 5px; font-size: 25px;" ></i></a>
         </div>
         <div class="blog-post">
             <img src="./images/perfect sofa.jpeg" alt="Blog Post 2">
             <h3>How to Choose the Perfect Sofa for Your Living Room</h3>
             <p>Choosing the right sofa can transform your living room into a cozy and stylish retreat. Learn the key factors to consider when selecting the perfect sofa...</p>
-            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; padding-left: 5px; width: 15px; color: red; font-size: 25px;" ></i></a>
+            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; padding-left: 5px; width: 15px; color: blue; font-size: 25px;" ></i></a>
         </div>
         <div class="blog-post">
             <img src="./images/office image.jpg" alt="Blog Post 3">
             <h3>5 Tips for Creating a Functional and Stylish Home Office</h3>
             <p>With more people working from home, creating a functional yet stylish home office is essential. Explore our top tips for designing a productive workspace...</p>
-            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; width: 15px; padding-left: 5px; color: red; font-size: 25px;" ></i></a>
+            <a href="#" class="read-more">Read More <i class="fa fa-long-arrow-right" style="position: relative; top: 5px; width: 15px; padding-left: 5px; color:blue; font-size: 25px;" ></i></a>
         </div>
     </div>
 </section>
@@ -296,21 +300,9 @@
 });
 
 
-// Newsletter form submission
-// $('#newsletter-form').submit(function(event) {
-//         event.preventDefault();
-//         var email = $('#email').val();
-//         if (validateEmail(email)) {
-//             $('#response-message').text('Thank you for subscribing!');
-//         } else {
-//             $('#response-message').text('Please enter a valid email address.');
-//         }
-//     });
 
-//     function validateEmail(email) {
-//         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//         return re.test(String(email).toLowerCase());
-//     }
+    
+
 ;
     </script>
 </html>  
