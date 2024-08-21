@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-transform: capitalize;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            text-transform: capitalize;
+        }
+        .section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+        }
+        .section h3 {
+            margin-top: 0;
+        }
+        .section p {
+            margin: 5px 0;
+        }
+        .section input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            display: none;
+        }
+        .edit-btn, .save-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            border-radius: 5px;
+        }
+        .payment-btn{
+            height: 50px;
+            width: 250px;
+            font-size: 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            position: relative;
+            left: 50rem;
+            top: 1rem;
+            border: none;
+        }
+        .save-btn, .payment-btn {
+            display: none;
+        }
+        .save-btn.show, .payment-btn.show {
+            display: inline-block;
+        }
+        .edit-btn:hover, .save-btn:hover, .payment-btn:hover {
+            background-color: #0056b3;
+        }
+        .back-to-delivery {
+  position: relative;
+    left: 8rem;
+
+}
+
+#back-to-delivery-btn {
+    /* background-color: #f8f8f8; */
+    padding: 10px 20px;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+#back-to-delivery-btn:hover{
+    color: black;
+}
+@media (min-width:340px) and (max-width: 500px) {
+    #back-to-delivery-btn {
+    /* background-color: #f8f8f8; */
+    padding: 10px 20px;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 1.1rem;
+    position: relative;
+    right: 6rem;
+    top: 1rem;
+}
+#back-to-delivery-btn:hover{
+    color: black;
+}
+.payment-btn{
+            height: 50px;
+            width: 250px;
+            font-size: 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            position: relative;
+            left: 2rem;
+            top: 1rem;
+            border: none;
+        }
+}
+@media(min-width:1001px) and (max-width:1030px){
+    .payment-btn{
+            height: 50px;
+            width: 250px;
+            font-size: 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            position: relative;
+            left: 15rem;
+            top: 5rem;
+            border: none;
+        }
+        #back-to-delivery-btn {
+    /* background-color: #f8f8f8; */
+    padding: 10px 20px;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 1.1rem;
+    position: relative;
+    right: 6rem;
+    top: 1rem;
+}
+#back-to-delivery-btn:hover{
+    color: black;
+}
+}
+@media(min-width:701px) and (max-width:1000px){
+    .payment-btn{
+            height: 50px;
+            width: 250px;
+            font-size: 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            position: relative;
+            left: 8rem;
+            top: 3rem;
+            border: none;
+        }
+        #back-to-delivery-btn {
+    /* background-color: #f8f8f8; */
+    padding: 10px 20px;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 1.1rem;
+    position: relative;
+    right: 6rem;
+    top: 1rem;
+}
+#back-to-delivery-btn:hover{
+    color: black;
+}
+}
+    </style>
+</head>
+<body style="background-color: #ebedf5;">
+
+    <div class="back-to-delivery">
+        <button id="back-to-delivery-btn"><i class="fa fa-long-arrow-left">Back</i></button>
+    </div>
+    <div class="container" >
+        <h2>Order Summary</h2>
+
+        <div class="section" id="card-section">
+            <h3>Card Information</h3>
+            <p><strong>Cardholder's Name:</strong> <span id="card-name-text"></span><input type="text" id="card-name-input"></p>
+            <p><strong>Card Number:</strong> * * ** <span id="card-last-digits"></span></p>
+            <button class="edit-btn" onclick="toggleEditSave('card')">Edit</button>
+            <button class="save-btn" onclick="saveCardInformation()">Save</button>
+        </div>
+
+        <div class="section" id="delivery-section">
+            <h3>Delivery Information</h3>
+            <p><strong>Full Name:</strong> <span id="delivery-name-text"></span><input type="text" id="delivery-name-input"></p>
+            <p><strong>Address:</strong> <span id="delivery-address-text"></span><input type="text" id="delivery-address-input"></p>
+            <p><strong>City:</strong> <span id="delivery-city-text"></span><input type="text" id="delivery-city-input"></p>
+            <p><strong>State:</strong> <span id="delivery-state-text"></span><input type="text" id="delivery-state-input"></p>
+            <p><strong>Zip Code:</strong> <span id="delivery-zip-text"></span><input type="text" id="delivery-zip-input"></p>
+            <p><strong>Country:</strong> <span id="delivery-country-text"></span><input type="text" id="delivery-country-input"></p>
+            <button class="edit-btn" onclick="toggleEditSave('delivery')">Edit</button>
+            <button class="save-btn" onclick="saveDeliveryInformation()">Save</button>
+        </div>
+
+        <button class="payment-btn show" onclick="proceedToPayment()">Proceed to Payment</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve card information from localStorage
+            const cardInfo = JSON.parse(localStorage.getItem('cardInfo')) || {};
+            document.getElementById('card-name-text').textContent = cardInfo.name || '';
+            document.getElementById('card-name-input').value = cardInfo.name || '';
+            document.getElementById('card-last-digits').textContent = cardInfo.number ? cardInfo.number.slice(-4) : '';
+
+            // Retrieve delivery information from localStorage
+            const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+            document.getElementById('delivery-name-text').textContent = deliveryInfo.fullName || '';
+            document.getElementById('delivery-name-input').value = deliveryInfo.fullName || '';
+            document.getElementById('delivery-address-text').textContent = deliveryInfo.address || '';
+            document.getElementById('delivery-address-input').value = deliveryInfo.address || '';
+            document.getElementById('delivery-city-text').textContent = deliveryInfo.city || '';
+            document.getElementById('delivery-city-input').value = deliveryInfo.city || '';
+            document.getElementById('delivery-state-text').textContent = deliveryInfo.state || '';
+            document.getElementById('delivery-state-input').value = deliveryInfo.state || '';
+            document.getElementById('delivery-zip-text').textContent = deliveryInfo.zipCode || '';
+            document.getElementById('delivery-zip-input').value = deliveryInfo.zipCode || '';
+            document.getElementById('delivery-country-text').textContent = deliveryInfo.country || '';
+            document.getElementById('delivery-country-input').value = deliveryInfo.country || '';
+        });
+
+        function toggleEditSave(section) {
+            const sectionElement = document.getElementById(`${section}-section`);
+            if (sectionElement) {
+                const editBtn = sectionElement.querySelector('.edit-btn');
+                const saveBtn = sectionElement.querySelector('.save-btn');
+                const inputs = sectionElement.querySelectorAll('input');
+                const spans = sectionElement.querySelectorAll('span');
+
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+
+                inputs.forEach(input => {
+                    input.style.display = 'inline-block';
+                });
+                spans.forEach(span => {
+                    span.style.display = 'none';
+                });
+            }
+        }
+
+        function saveCardInformation() {
+            const nameInput = document.getElementById('card-name-input').value;
+
+            // Save updated card information to localStorage
+            const cardInfo = JSON.parse(localStorage.getItem('cardInfo')) || {};
+            cardInfo.name = nameInput;
+            localStorage.setItem('cardInfo', JSON.stringify(cardInfo));
+
+            // Update text display
+            document.getElementById('card-name-text').textContent = nameInput;
+
+            // Toggle edit and save buttons
+            toggleSaveEdit('card');
+        }
+
+        function saveDeliveryInformation() {
+            const fullName = document.getElementById('delivery-name-input').value;
+            const address = document.getElementById('delivery-address-input').value;
+            const city = document.getElementById('delivery-city-input').value;
+            const state = document.getElementById('delivery-state-input').value;
+            const zipCode = document.getElementById('delivery-zip-input').value;
+            const country = document.getElementById('delivery-country-input').value;
+
+            // Save updated delivery information to localStorage
+            const deliveryInfo = {
+                fullName,
+                address,
+                city,
+                state,
+                zipCode,
+                country
+            };
+            localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+
+            // Update text display
+            document.getElementById('delivery-name-text').textContent = fullName;
+            document.getElementById('delivery-address-text').textContent = address;
+            document.getElementById('delivery-city-text').textContent = city;
+            document.getElementById('delivery-state-text').textContent = state;
+            document.getElementById('delivery-zip-text').textContent = zipCode;
+            document.getElementById('delivery-country-text').textContent = country;
+
+            // Toggle edit and save buttons
+            toggleSaveEdit('delivery');
+        }
+
+        function toggleSaveEdit(section) {
+            const sectionElement = document.getElementById(`${section}-section`);
+            if (sectionElement) {
+                const editBtn = sectionElement.querySelector('.edit-btn');
+                const saveBtn = sectionElement.querySelector('.save-btn');
+                const inputs = sectionElement.querySelectorAll('input');
+                const spans = sectionElement.querySelectorAll('span');
+
+                saveBtn.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+
+                inputs.forEach(input => {
+                    input.style.display = 'none';
+                });
+                spans.forEach(span => {
+                    span.style.display = 'inline-block';
+                });
+            }
+        }
+
+        document.getElementById('back-to-delivery-btn').addEventListener("click", ()=>{
+            window.location.href = "delivery.html";
+        });
+
+
+        function proceedToPayment() {
+            // Redirect to payment page
+            window.location.href = 'payment.html'; // Update with the actual payment page path
+        }
+    </script>
+</body>
+</html>
