@@ -183,7 +183,7 @@ button:hover{
     .input-group i{
         position:absolute;
         color:black;
-        top: 0.5rem;
+        top: 0.4rem;
     }
     input:focus{
         background-color: transparent;
