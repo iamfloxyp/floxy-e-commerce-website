@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="quantity">
                     <i class="fa fa-plus" data-id="${item.productName}"></i>
-                    <h4>${item.quantity}</h4>
+                    <h4 class = "quantity-text">${item.quantity}</h4>
                     <i class="fa fa-minus" data-id="${item.productName}"></i>
                 </div>
                 <div class="items-details">
